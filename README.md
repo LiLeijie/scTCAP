@@ -14,7 +14,9 @@ This workflow enables cell classification of tumor single-cell transcriptome dat
 ![739509798323892224](https://user-images.githubusercontent.com/23115618/178656464-52ff76ca-fc6e-44ff-a38d-ab2609374426.jpg)
 
 # Data prepareration
-scTCAP软件无需进行模型预训练，采用10813个基因特征条目的TPM/CPM值进行细胞类型分类。因此需要使用者对分类数据的基因特征按照scTCAP/data/testdata1000.tsv中的基因特征symbol进行排列。对于缺失的基因条目，默认为该队列中未检测到相关特征的表达，因此赋值为0。值得注意的是由于基因特征中存在LncRNA等非编码序列信息，因此我们在测试集合中采用基因symbol形式进行展示特征基因。
+We used the TPM/CPM value of 10813 genes to predicted cell type of  tumor scRNA-seq data. And scTCAP software does not require pre-training. Users can directly use scTCAP by providing appropriate query data.
+Users need to arrange the gene features of query data according to the gene symbols in scTCAP/data/testdata1000.tsv. Since there are many unexpressed genes in the scRNA-seq data, the expression value of missing genes is set to 0. However, it should be noted that the lack of too many gene will lead to the unsatisfactory classification accuracy of scTCAP.
+
 ```shell
 testdata e.g.   
        Symbol,BT1300_ACAGCCGAGTGTCCCG,BT1297_CGACTTCCAGTATCTG,CCAATCCGTTCTGGTA.2
@@ -24,10 +26,11 @@ testdata e.g.
 ```
 
 # Run scTCAP
-完成数据的准备后即可使用scTCAP模型对数据的细胞类型进行分类，我们给出了1000个细胞的测试数据：scTCAP/data/testdata1000.tsv。
+After preparing the data, scTCAP can be used to predict the cell type of the query data.
+We show an example:
 ```shell
 python scTCAP.py -in ../data/testdata1000.tsv -out ../result/celltype_result.txt -q 0.3 -sep \t
-  
+
 result e.g.
     CellName, CellType
     BT1300_ACAGCCGAGTGTCCCG, Tumor cell
