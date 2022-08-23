@@ -14,7 +14,7 @@ This workflow enables cell classification of tumor single-cell transcriptome dat
 ![739509798323892224](https://user-images.githubusercontent.com/23115618/178656464-52ff76ca-fc6e-44ff-a38d-ab2609374426.jpg)
 
 # Data prepareration
-We used the TPM/CPM value of 10813 genes to predicted cell type of  tumor scRNA-seq data. And scTCAP software does not require pre-training. Users can directly use scTCAP by providing appropriate query data.
+We used the TPM/CPM value of 10813 genes to predicted cell type of  tumor scRNA-seq data. And scTCAP software does not require pre-training. Users can directly use scTCAP by providing appropriate query data.   
 Users need to arrange the gene features of query data according to the gene symbols in scTCAP/data/testdata1000.tsv. Since there are many unexpressed genes in the scRNA-seq data, the expression value of missing genes is set to 0. However, it should be noted that the lack of too many gene will lead to the unsatisfactory classification accuracy of scTCAP.
 
 ```shell
@@ -31,7 +31,7 @@ We show an example:
 ```shell
 python scTCAP.py -in ../data/testdata1000.tsv -out ../result/celltype_result.txt -q 0.3 -sep \t
 
-result e.g.
+Results e.g.
     CellName, CellType
     BT1300_ACAGCCGAGTGTCCCG, Tumor cell
     BT1297_CGACTTCCAGTATCTG, Tumor cell
@@ -41,8 +41,8 @@ result e.g.
 ```
 ```shell
 Arguments
--in <srt>     
--out <str>
--q <float>    细胞类型分类的可靠性打分.(default 0.2)
--sep <str>    输入文件的分隔符号.(default "\t")
+-in <srt>     Input query data name;  
+-out <str>    output result name;  
+-q <float>    Confidence score cutoff for cell type classification, cells with score below the cutoff will be classified as "unknown" cell-type (default is 0.2);
+-sep <str>    input file delimiter "\t" or "," (default is "\t").  
 ```
