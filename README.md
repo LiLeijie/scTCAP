@@ -29,7 +29,7 @@ testdata e.g.
 After preparing the data, scTCAP can be used to predict the cell type of the query data.
 We show an example:
 ```shell
-python scTCAP.py -in ../data/testdata1000.tsv -out ../result/celltype_result.txt -q 0.3 -sep \t
+python scTCAP.py -in ../data/testdata1000.tsv -out ../result/celltype_result.txt -q 0.3 -sep '\t'
 
 Results e.g.
     CellName, CellType
