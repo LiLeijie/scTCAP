@@ -11,7 +11,7 @@ This workflow enables cell classification of tumor single-cell transcriptome dat
 - argparse
 
 # workflow of scTCAP
-![739509798323892224](https://user-images.githubusercontent.com/23115618/178656464-52ff76ca-fc6e-44ff-a38d-ab2609374426.jpg)
+![Figure1](https://user-images.githubusercontent.com/23115618/231777952-b291a7d6-ad23-4931-8593-12c8c4a6e0bf.jpg)
 
 # Data prepareration
 We used the TPM/CPM value of 10813 genes to predicted cell type of  tumor scRNA-seq data. And scTCAP software does not require pre-training. Users can directly use scTCAP by providing appropriate query data.   
@@ -29,20 +29,19 @@ testdata e.g.
 After preparing the data, scTCAP can be used to predict the cell type of the query data.
 We show an example:
 ```shell
-python scTCAP.py -in ../data/testdata1000.tsv -out ../result/celltype_result.txt -q 0.3 -sep '\t'
+python scTCAP.py -in ../data/testdata1000.tsv -out ../result/celltype_result.txt -q 0.5
 
 Results e.g.
-    CellName, CellType
-    BT1300_ACAGCCGAGTGTCCCG, Tumor cell
-    BT1297_CGACTTCCAGTATCTG, Tumor cell
-    CCAATCCGTTCTGGTA.2, Tumor cell
-    T75_CGAATGTCATGCGCAC.1, Tumor cell
-    T27_AACTCAGGTACCATCA.1, Tumor cell
+    CellName, CellType, Score
+    BT1300_ACAGCCGAGTGTCCCG, Tumor cell, 0.998
+    BT1297_CGACTTCCAGTATCTG, Tumor cell, 0.9888
+    CCAATCCGTTCTGGTA.2, Tumor cell, 0.821
+    T75_CGAATGTCATGCGCAC.1, Tumor cell, 0.951
+    T27_AACTCAGGTACCATCA.1, Tumor cell, 0.927
 ```
 ```shell
 Arguments
 -in <srt>     Input query data name;  
 -out <str>    output result name;  
--q <float>    Confidence score cutoff for cell type classification, cells with score below the cutoff will be classified as "unknown" cell-type (default is 0.2);
--sep <str>    input file delimiter "\t" or "," (default is "\t").  
+-q <float>    Confidence score cutoff for cell type classification, cells with score below the cutoff will be classified as "unknown" cell-type (default is 0.2).
 ```
