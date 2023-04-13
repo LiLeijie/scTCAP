@@ -16,7 +16,6 @@ from sklearn.preprocessing import MinMaxScaler, StandardScaler
 from sklearn.metrics import roc_curve, auc, f1_score,precision_score,recall_score,accuracy_score
 from sklearn.model_selection import train_test_split
 import warnings
-# model and args
 from scTCAP_Transformer_model import Model
 from scTCAP_args import Config
 
@@ -35,7 +34,6 @@ def GetParser(parser=None):
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 parser = GetParser()
 args = parser.parse_args()
-print('args:', args)  # parameter confirm
 querydata = args.inputfile
 save_file = args.outfile
 q_score = args.quanlity
@@ -77,7 +75,6 @@ for i in range(math.ceil(len(em_x) / 1000)):
     else:
         em_feature = np.vstack((em_feature, a))
 
-
 testdata2 = np.hstack((testmatrix, em_feature))
 x_test2 = testdata2.reshape(len(testmatrix), 128, 90)
 x_test2 = torch.from_numpy(x_test2).to(torch.float32)
@@ -86,7 +83,6 @@ x_train = x_test2
 M_train = len(x_test2)
 if M_train % config.batch_size == 1:
     M_train -= 1
-
 
 with tqdm(np.arange(0, M_train, config.batch_size), desc='Training...') as tbar:
     for index in tbar:
