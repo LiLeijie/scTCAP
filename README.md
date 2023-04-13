@@ -8,6 +8,10 @@ This workflow enables cell classification of tumor single-cell transcriptome dat
 - python = 3.6.8
 - pytorch = 1.10.2
 - numpy = 1.19.5
+- pandas = 1.15
+- sklearn = 0.24.1
+- scipy = 1.5.4
+- tqdm
 - argparse
 
 # workflow of scTCAP
