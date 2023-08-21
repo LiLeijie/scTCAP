@@ -56,14 +56,14 @@ def Callauc(prediction, y_label):
     row_index = np.array(range(len(target_y)))
     col_index = target_y.astype(int)
     data = np.repeat(1, len(target_y))
-    target_y_m = csr_matrix((data, (row_index, col_index))).toarray()  #
-    fpr, tpr, _ = roc_curve(target_y_m.ravel(), y_score.ravel())  #
-    auc_all = auc(fpr, tpr)  # 计算auc
+    target_y_m = csr_matrix((data, (row_index, col_index))).toarray()
+    fpr, tpr, _ = roc_curve(target_y_m.ravel(), y_score.ravel())
+    auc_all = auc(fpr, tpr)
     for i in range(10):
         i_target_y_m = target_y_m[:, i]
         i_y_score = y_score[:, i]
-        i_fpr, i_tpr, _ = roc_curve(i_target_y_m.ravel(), i_y_score.ravel())  #
-        i_auc = auc(i_fpr, i_tpr)  # 计算auc
+        i_fpr, i_tpr, _ = roc_curve(i_target_y_m.ravel(), i_y_score.ravel())
+        i_auc = auc(i_fpr, i_tpr)
         if i == 0:
             auc_eachcluster = np.array([i, i_auc])
         else:
@@ -168,22 +168,20 @@ for fold, (train_idx, test_idx) in enumerate(kf.split(train, targets)):
 
     if M_val % batch_size == 1:
         M_val -= 1
-    # 数据格式标准化
     x_train = torch.from_numpy(x_train).to(torch.float32).to(config.device)
     x_val = torch.from_numpy(x_val).to(torch.float32).to(config.device)
     y_train = torch.from_numpy(y_train).to(torch.long).to(config.device)
     y_val = torch.from_numpy(y_val).to(torch.long).to(config.device)
-    # 手动构建模型
-    model = Model(config)  # 调用transformer的编码器  #写在里面是因为会删除模型重置，所以每次重新构建模型
+    # building model
+    model = Model(config)
     # postion_embedding = Positional_Encoding(config.embed, config.pad_size, config.dropout, config.device)
     # x = x_train[0:128]
     # out = postion_embedding(x_train)
     model.to(config.device)
     optimizer = torch.optim.Adam(model.parameters(), lr=config.learning_rate)
-    loss_func = nn.CrossEntropyLoss()  # 多分类的任务
-    model.train()  # 模型中有BN和Droupout一定要添加这个说明
-    print('开始迭代....')
-    # 开始迭代 epochs, 迭代多少次
+    loss_func = nn.CrossEntropyLoss()
+    model.train()
+    print('Start Train....')
     train_loss_list = []
     train_acc_list = []
     train_auc_list = []
